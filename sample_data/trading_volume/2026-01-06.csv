@@ -1,0 +1,11 @@
+﻿date,rank,ticker,name,industry,volume
+2026-01-06,1,BANK01,Bank One,Banking,19300000
+2026-01-06,2,BANK02,Bank Two,Banking,18600000
+2026-01-06,3,BANK03,Bank Three,Banking,17900000
+2026-01-06,4,BANK04,Bank Four,Banking,17200000
+2026-01-06,5,BANK05,Bank Five,Banking,16500000
+2026-01-06,6,BANK06,Bank Six,Banking,15800000
+2026-01-06,7,BANK07,Bank Seven,Banking,15100000
+2026-01-06,8,BANK08,Bank Eight,Banking,14400000
+2026-01-06,9,BANK09,Bank Nine,Banking,13700000
+2026-01-06,10,TECH02,Tech Two,Technology,13000000

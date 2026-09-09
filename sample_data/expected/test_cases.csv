@@ -1,0 +1,17 @@
+﻿test_id,test_name,date,source,expected,reason,status
+TC01,Market Cap basic outlier,2026-01-01,market_cap,TECH05,Banking is dominant (8/10); TECH05 is outside the dominant industry.,PASS
+TC02,Trading Volume basic outlier,2026-01-01,trading_volume,TECH02,Banking is dominant (9/10); TECH02 is the independent Volume outlier.,PASS
+TC03,Two independent paths,2026-01-01,both,TECH05 / TECH02,TECH05 comes from Market Cap; TECH02 comes from Volume. Neither path requires the other.,PASS
+TC04,Same company in both paths,2026-01-10,both,RE02,"RE02 is detected independently in both Top-10 tables; record two source tags, do not add scores.",PASS
+TC05,No dominant industry,2026-01-07,market_cap,NONE,Distribution is 2/2/2/2/1/1; engine must not invent a dominant industry.,PASS
+TC06,Weak dominance,2026-01-08,market_cap,CHECK_THRESHOLD,"Distribution is 4/3/2/1; expected behavior depends on the configured dominance/outlier threshold, so this is a configuration test.",CONFIG
+TC07,Sudden Market Cap entry,2026-01-04,market_cap,TECH01,TECH01 is outside Top 10 on 2026-01-01..03 and enters Top 10 on 2026-01-04.,PASS
+TC08,Already present is not sudden entry,2026-01-02,market_cap,TECH05,TECH05 is already Top 10 before the test date; new_entry must be false.,PASS
+TC09,MC outlier without Volume outlier,2026-01-09,market_cap,TECH06,TECH06 is the MC outlier; the Volume table has a different outlier (TECH07).,PASS
+TC10,Volume outlier without MC outlier,2026-01-09,trading_volume,TECH07,TECH07 is the Volume outlier; it is absent from the MC Top 10.,PASS
+TC11,Related-company industry detection,2026-01-04,corporate,TECH01A/B/C,"TECH01 related-company industries include Semiconductor, Electronics, Construction, Technology, Technology; engine should surface the non-dominant industry/company candidates rather than use relationship labels.",PASS
+TC12,Do not use relationship-type semantics,N/A,corporate,TECH01A-E,Only ticker/name/industry are supplied. There is intentionally no subsidiary/associate/JV field.,PASS
+TC13,No clear beneficiary,N/A,corporate,TECH02,All four related companies are Technology; there is no industry outlier. Engine must return NONE/UNKNOWN rather than choose arbitrarily.,PASS
+TC14,Multiple companies in candidate industry,N/A,corporate,TECH06A + TECH06B,Artificial Intelligence appears twice. Engine must return the candidate set or require manual research; it must not arbitrarily select one.,PASS
+TC15,Exit at +30%,2026-01-01,prices,TECH01A,Entry 100 reaches 130 on 2026-01-06; expected exit reason TARGET_30_PERCENT.,PASS
+TC16,Thesis invalidation placeholder,N/A,prices/corporate,TECH01A,"Not represented by an event scanner. This should be handled by a manual thesis-status input/portfolio layer, not events.csv.",MANUAL

@@ -1,0 +1,11 @@
+﻿date,rank,ticker,name,industry,volume
+2026-01-07,1,BANK01,Bank One,Banking,19300000
+2026-01-07,2,BANK02,Bank Two,Banking,18600000
+2026-01-07,3,RE01,Real Estate One,Real Estate,17900000
+2026-01-07,4,RE02,Real Estate Two,Real Estate,17200000
+2026-01-07,5,TECH01,Tech One,Technology,16500000
+2026-01-07,6,TECH02,Tech Two,Technology,15800000
+2026-01-07,7,STEEL01,Steel One,Steel,15100000
+2026-01-07,8,STEEL02,Steel Two,Steel,14400000
+2026-01-07,9,CON01,Consumer One,Consumer,13700000
+2026-01-07,10,EN01,Energy One,Energy,13000000

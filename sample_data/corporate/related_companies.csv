@@ -1,0 +1,21 @@
+﻿parent_ticker,related_ticker,related_name,related_industry
+TECH01,TECH01A,Tech One Semiconductor,Semiconductor
+TECH01,TECH01B,Tech One Electronics,Electronics
+TECH01,TECH01C,Tech One Construction,Construction
+TECH01,TECH01D,Tech One Software,Technology
+TECH01,TECH01E,Tech One Digital,Technology
+TECH02,TECH02A,Tech Two AI,Banking
+TECH02,TECH02B,Tech Two Cloud,Technology
+TECH02,TECH02C,Tech Two Software,Technology
+TECH02,TECH02D,Tech Two Hardware,Banking
+TECH06,TECH06A,Tech Six AI,Artificial Intelligence
+TECH06,TECH06B,Tech Six AI Labs,Artificial Intelligence
+TECH06,TECH06C,Tech Six Software,Technology
+TECH06,TECH06D,Tech Six Software Cloud,Technology
+RE02,RE02A,Real Estate Two A,Real Estate
+RE02,RE02B,Real Estate Two B,Real Estate
+RE02,RE02C,Real Estate Two C,Real Estate
+RE02,RE02D,Real Estate Two D,Real Estate
+TECH03,TECH03A,Tech Three Semiconductor,Semiconductor
+TECH03,TECH03B,Tech Three Banking,Banking
+TECH03,TECH03C,Tech Three Banking Services,Banking

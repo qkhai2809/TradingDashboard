@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stock Analyzer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<!-- ================================================================
+     LOADING
+     ================================================================ -->
+<div class="loading-veil" id="loadingVeil">
+  <div class="box">
+    <div id="loadingText">ĐANG CHẠY PHÂN TÍCH…</div>
+    <div class="bar"><i></i></div>
+  </div>
+</div>
+
+
+<div class="app">
+
+  <!-- ==============================================================
+       SIDEBAR
+       ============================================================== -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <b>PHÂN TÍCH</b> CỔ PHIẾU
+      <span style="color:var(--text-faint)">· v1</span>
+    </div>
+
+    <div class="navitem active" data-page="dashboard">
+      <span class="dot"></span>
+      Tổng quan
+    </div>
+
+    <div class="navitem" data-page="tests">
+      <span class="dot"></span>
+      Kiểm thử
+    </div>
+
+    <div class="navitem" data-page="debug">
+      <span class="dot"></span>
+      Gỡ lỗi
+    </div>
+
+    <div class="foot">
+      dữ liệu từ FastAPI<br>
+      backend đã kết nối
+    </div>
+
+  </aside>
+
+
+  <!-- ==============================================================
+       MAIN CONTENT
+       ============================================================== -->
+  <main class="content">
+
+
+    <!-- ============================================================
+         DASHBOARD
+         ============================================================ -->
+    <section class="page active" id="page-dashboard">
+
+      <div class="toolbar">
+
+        <div class="toolbar-left">
+
+          <div>
+            <h1>Dashboard</h1>
+
+            <div class="subtitle">
+              Phát hiện cổ phiếu lệch nhóm ngành trong Top 10
+            </div>
+          </div>
+
+          <!--
+            Hiện tại Backend đang sử dụng DATA_DATE = 2026-01-01.
+            Ô ngày hiện chỉ dùng để hiển thị.
+            Chưa truyền ngày xuống API.
+          -->
+          <input
+            type="date"
+            id="analysisDate"
+            value="2026-01-01"
+          >
+
+        </div>
+
+
+        <div class="toolbar-right">
+
+          <button id="btnMarketCap">
+            VỐN HÓA
+          </button>
+
+          <button id="btnVolume">
+            KHỐI LƯỢNG GD
+          </button>
+
+          <button class="primary" id="btnRunAll">
+            CHẠY TẤT CẢ
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!--
+        app.js sẽ render dữ liệu Backend vào đây.
+      -->
+      <div id="dashboardResults"></div>
+
+    </section>
+
+
+
+    <!-- ============================================================
+         TESTS
+         ============================================================ -->
+    <section class="page" id="page-tests">
+
+      <div class="toolbar">
+
+        <div>
+
+          <h1>Bộ kiểm thử</h1>
+
+          <div class="subtitle">
+            Kiểm thử thuật toán Backend bằng pytest
+          </div>
+
+        </div>
+
+        <div class="toolbar-right">
+
+          <!--
+            Nút này gọi /api/tests.
+            FastAPI sẽ chạy pytest thật ở Backend.
+          -->
+          <button class="primary" id="btnRunTests">
+            CHẠY TẤT CẢ TEST
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==========================================================
+           TEST SUMMARY
+           app.js sẽ điền:
+           - số test đạt
+           - số test không đạt
+           - tổng số test
+           ========================================================== -->
+      <div id="testSummary" class="test-summary"></div>
+
+
+      <!-- ==========================================================
+           TEST TABLE
+           ========================================================== -->
+      <div class="panel">
+
+        <div class="panel-head">
+
+          <span class="title">
+            DANH SÁCH TEST
+          </span>
+
+        </div>
+
+        <div class="panel-body">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Tên test</th>
+                <th>Thời gian</th>
+                <th>Kết quả</th>
+                <th>Trạng thái</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="testTableBody">
+
+              <!--
+                app.js sẽ render kết quả pytest vào đây.
+              -->
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==========================================================
+           TEST ARCHITECTURE INFO
+           ========================================================== -->
+      <div class="panel">
+
+        <div class="panel-head">
+
+          <span class="title">
+            KIẾN TRÚC KIỂM THỬ
+          </span>
+
+        </div>
+
+        <div class="panel-body">
+
+          <p class="wrap">
+            Frontend không tự chạy hoặc tính lại logic kiểm thử.
+            Toàn bộ test được thực hiện tại Backend bằng
+            <b>pytest</b>.
+          </p>
+
+          <div class="flow-row">
+            <span class="mono">
+              Backend/tests/
+            </span>
+          </div>
+
+          <div class="flow-arrow">
+            ↓
+          </div>
+
+          <div class="flow-row">
+            <span class="mono">
+              pytest
+            </span>
+          </div>
+
+          <div class="flow-arrow">
+            ↓
+          </div>
+
+          <div class="flow-row">
+            <span class="mono">
+              FastAPI /api/tests
+            </span>
+          </div>
+
+          <div class="flow-arrow">
+            ↓
+          </div>
+
+          <div class="flow-row">
+            <span class="mono">
+              app.js
+            </span>
+          </div>
+
+          <div class="flow-arrow">
+            ↓
+          </div>
+
+          <div class="flow-row">
+            <span>
+              Hiển thị kết quả kiểm thử
+            </span>
+          </div>
+
+          <br>
+
+          <p class="wrap">
+            Khi nhấn
+            <b>CHẠY TẤT CẢ TEST</b>,
+            Frontend gửi request tới Backend.
+            Backend thực sự chạy toàn bộ test trong
+            <b>Backend/tests/</b> rồi trả kết quả về.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ============================================================
+         DEBUG
+         ============================================================ -->
+    <section class="page" id="page-debug">
+
+      <div class="toolbar">
+
+        <div>
+
+          <h1>Debug</h1>
+
+          <div class="subtitle">
+            Xem từng bước xử lý của pipeline Backend
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="debug-select">
+
+        <select id="debugSource">
+
+          <option value="market_cap">
+            VỐN HÓA
+          </option>
+
+          <option value="trading_volume">
+            KHỐI LƯỢNG GIAO DỊCH
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div
+        class="flow"
+        id="debugFlow"
+      ></div>
+
+    </section>
+
+
+  </main>
+
+</div>
+
+
+<!-- ================================================================
+     JAVASCRIPT
+     
+     Chỉ load app.js.
+     
+     Không còn:
+       mock-data.js
+       TESTS hard-code
+       dữ liệu giả Frontend
+     
+     Dashboard và Test đều lấy dữ liệu từ Backend.
+     ================================================================ -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
